@@ -6,7 +6,7 @@ Proyecto desarrollado para la asignatura **Juegos en Red** de la Universidad Rey
 
 El proyecto consiste en desarrollar un videojuego cooperativo 2D de supervivencia, inspirado en las mecánicas de esquivar obstáculos de *Undertale*.
 
-Dos jugadores deberán colaborar para sobrevivir durante un tiempo determinado dentro de una arena compartida, evitando diferentes patrones de obstáculos que aparecen a lo largo de la partida.
+Dos jugadores deberán colaborar para sobrevivir durante 2 minutos dentro de una arena compartida, evitando diferentes patrones de obstáculos que aparecen a lo largo de la partida.
 
 Ambos jugadores comparten una misma barra de salud, por lo que deberán coordinar sus movimientos, evitar recibir daño y aprovechar los objetos beneficiosos para conseguir la victoria.
 
@@ -21,13 +21,14 @@ El videojuego contará con una estética pixel-art sencilla, con el objetivo de 
 - **Power-ups cooperativos:** objetos que pueden ser recogidos únicamente por el jugador correspondiente y que benefician a ambos.
 - **Invulnerabilidad temporal:** después de recibir daño, el jugador dispone de 2 segundos de protección.
 - **Patrones de ataque:** los obstáculos aparecen mediante diferentes patrones seleccionados aleatoriamente.
-- **Supervivencia por tiempo:** los jugadores ganan si consiguen sobrevivir hasta que finalice el temporizador.
+- **Supervivencia por tiempo:** los jugadores ganan si consiguen sobrevivir durante los 120 segundos de la partida.
+- **Dificultad progresiva:** cada 40 segundos aumenta la velocidad de los obstáculos.
 
 ## Modalidades de juego
 
 El desarrollo del videojuego se realizará progresivamente.
 
-**Primera fase — Multijugador local**
+**Versión inicial — Multijugador local**
 
 Los dos jugadores compartirán un mismo ordenador y teclado.
 
@@ -44,12 +45,8 @@ El documento completo de diseño del videojuego (Game Design Document) se encuen
 
 **[Consultar GDD](GDD.md)**
 
-## Equipo de desarrollo
-
-Pendiente de definir los integrantes, roles y nombre del equipo.
-
 ## Estado del proyecto
 
 **Fase 1 — Diseño y documentación.**
 
-Actualmente se están definiendo las mecánicas, características y estructura del videojuego antes de comenzar su implementación.
+Actualmente se han definido las mecánicas principales, las características y la estructura del videojuego. La implementación se realizará en las siguientes fases de la práctica.
