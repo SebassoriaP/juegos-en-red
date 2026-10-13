@@ -4,7 +4,7 @@ Juego:
 
 Integrantes:
 - Sebastián Soria   - sa.soria.2026@alumnos.urjc.es    - GitHub: SebassoriaP
-- Alumno Dos Ejemplo    - a.dos.20XX@alumnos.urjc.es    - GitHub: alumno2-ejemplo
-- Alumna Tres Ejemplo   - a.tres.20XX@alumnos.urjc.es   - GitHub: alumno3-ejemplo
+- Benjamín Agüera   - b.aguera.2024@alumnos.urjc.es    - GitHub: benjaminaguera
+- Marcos Varona   - m.varona.2024@alumnos.urjc.es   - GitHub: kensey519
 
 Repositorio GitHub: https://github.com/SebassoriaP/juegos-en-red
