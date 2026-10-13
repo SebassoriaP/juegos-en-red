@@ -1,6 +1,6 @@
 Juegos en Red - Fase 1
 Grupo: D
-Juego: 
+Juego: TaleFor2
 
 Integrantes:
 - Sebastián Soria   - sa.soria.2026@alumnos.urjc.es    - GitHub: SebassoriaP

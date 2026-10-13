@@ -1,4 +1,4 @@
-# Juegos en Red — Proyecto de Videojuego
+# TaleFor2 — Juegos en Red
 
 Proyecto desarrollado para la asignatura **Juegos en Red** de la Universidad Rey Juan Carlos (URJC).
 
