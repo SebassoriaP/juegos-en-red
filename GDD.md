@@ -32,3 +32,7 @@ La estética elegida será pixel-art, principalmente por su simpleza y sencillez
 Inicialmente, el juego se desarrollará para dos jugadores en un mismo ordenador, compartiendo teclado y pantalla.
 
 Posteriormente, se adaptará para que ambos jugadores puedan jugar desde diferentes ordenadores conectados mediante red, manteniendo sincronizados los movimientos, obstáculos, salud y tiempo restante de la partida.
+
+## Historia
+
+En las tierras de Unrelated, los héroes Papyrus Y Sans se adentran en territorios oscuros y malévolos. En su viaje, se encuentran un malvado hechicero que enfrasca a ambos en un retorcido juego en el que deberán esquivar juntos trampas mortales hasta agotar las fuerzas mágicas de mago.
