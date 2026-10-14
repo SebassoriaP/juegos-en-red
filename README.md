@@ -50,3 +50,10 @@ El documento completo de diseño del videojuego (Game Design Document) se encuen
 **Fase 1 — Diseño y documentación.**
 
 Actualmente se han definido las mecánicas principales, las características y la estructura del videojuego. La implementación se realizará en las siguientes fases de la práctica.
+
+## Presentación
+
+La presentación de la Fase 1 se encuentra en el archivo
+[TaleFor2 - GDD.pptx](TaleFor2%20-%20GDD.pptx).
+
+[Ver presentación en Google Slides](https://docs.google.com/presentation/d/1kAnHR2WbEPPKEMs8aCVO1yCqv3uxVq8TCV9Wcp5TzAE/edit)
