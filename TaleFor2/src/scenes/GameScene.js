@@ -25,6 +25,12 @@ export default class GameScene extends Phaser.Scene {
 
         arena.setStrokeStyle(3, 0xffffff);
 
+        // Límites Físicoss
+        this.physics.world.setBounds(
+            50, 50,
+            700, 500
+        );
+
         this.player1 = new Player(this, 250, 300, 'player1', null);
 
         this.player2 = new Player(this, 550, 300, 'player2', null);
