@@ -1,5 +1,8 @@
 import Phaser from 'phaser';
 
+import MenuScene from './scenes/MenuScene.js';
+import GameScene from './scenes/GameScene.js';
+
 const config = {
     type: Phaser.AUTO,
     width: 800,
@@ -14,16 +17,7 @@ const config = {
         }
     },
 
-    scene: {
-        create: create
-    }
+    scene: [MenuScene, GameScene]
 };
 
 const game = new Phaser.Game(config);
-
-function create() {
-    this.add.text(400, 300, 'TaleFor2', {
-        fontSize: '48px',
-        color: '#ffffff'
-    }).setOrigin(0.5);
-}
