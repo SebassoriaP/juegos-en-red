@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import Player from '../entities/Player.js';
+import HPBar from '../entities/HPBar.js';
 
 export default class GameScene extends Phaser.Scene {
 
@@ -18,10 +19,11 @@ export default class GameScene extends Phaser.Scene {
 
         // Arena 
         const arena = this.add.rectangle(
-            400, 300,
-            700, 500,
+            400, 225,
+            700, 400,
             0x202336
         );
+
 
         arena.setStrokeStyle(3, 0xffffff);
 
@@ -35,6 +37,8 @@ export default class GameScene extends Phaser.Scene {
 
         this.player2 = new Player(this, 550, 300, 'player2', null);
 
+
+        this.hpBar = new HPBar(this, 20, 20, 700, 40);
 
         // jugador 1
         this.controls1 = this.input.keyboard.addKeys({
@@ -57,6 +61,6 @@ export default class GameScene extends Phaser.Scene {
 
         this.player1.update();
         this.player2.update();
-
+        this.hpBar.update();
     }
 }
