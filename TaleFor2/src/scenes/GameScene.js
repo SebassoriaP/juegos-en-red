@@ -1,7 +1,9 @@
 import Phaser from 'phaser';
 import Player from '../entities/Player.js';
 import HPBar from '../entities/HPBar.js';
-import Obstacle from '../entities/Obstacle.js';
+import Obstacle from '../entities/Obstacles/Obstacle.js';
+import HealingObstacle from '../entities/Obstacles/HealingObstacle.js';
+import CursedObstacle from '../entities/Obstacles/CursedObstacle.js';
 
 export default class GameScene extends Phaser.Scene {
 
@@ -36,9 +38,13 @@ export default class GameScene extends Phaser.Scene {
 
         this.player1 = new Player(this, 250, 300, 'player1', null);
         this.player2 = new Player(this, 550, 300, 'player2', null);
+
+        this.player1.setOtherPlayer(this.player2);
+        this.player2.setOtherPlayer(this.player1);
         this.playerGroup = this.add.group([this.player1.sprite, this.player2.sprite]);
 
         this.hpBar = new HPBar(this, 20, 20, 700, 40);
+        this.hpBar.modifyHP(-10);
 
         // jugador 1
         this.controls1 = this.input.keyboard.addKeys({
@@ -56,8 +62,7 @@ export default class GameScene extends Phaser.Scene {
         this.player2.controls = this.controls2;
 
 
-        this.obstacle = new Obstacle(this, 1000, 300, 'obstacle_texture', {x: -1, y: 0});
-
+        this.obstacle = new CursedObstacle(this, 800, 300, 'obstacle_texture', {x: -1, y: 0}, 0.5);
         // Para hacer que colisionen, mejorar en el futuro para manejar grupos
         this.physics.add.overlap(
             this.playerGroup, 
@@ -73,7 +78,6 @@ export default class GameScene extends Phaser.Scene {
     update() {
         this.player1.update();
         this.player2.update();
-        this.hpBar.update();
     }
 
     handleCollision(playerSprite, obstacleSprite) {

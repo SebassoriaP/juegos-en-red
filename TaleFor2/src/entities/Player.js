@@ -40,4 +40,8 @@ export default class Player {
     recibirDano(amount = 1) {
         this.scene.hpBar.modifyHP(amount);
     }
+
+    setOtherPlayer(otherPlayer) {
+        this.otherPlayer = otherPlayer;
+    }
 }   

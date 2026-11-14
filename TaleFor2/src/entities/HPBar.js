@@ -25,6 +25,7 @@ export default class HPBar {
     }
 
     update() {
+        
     }
     
     destroy() {
