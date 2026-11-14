@@ -21,10 +21,10 @@ export default class HPBar {
             0x00FF00
         ).setOrigin(0, 0.5); 
 
+        this.hpBar.width = (this.HP / this.HPMax) * this.width;
     }
 
     update() {
-        this.hpBar.width = (this.HP / this.HPMax) * this.width;
     }
     
     destroy() {
@@ -35,5 +35,14 @@ export default class HPBar {
 
     modifyHP(amount) {
         this.HP += amount;
+
+        if (this.HP > this.HPMax) {
+            this.HP = this.HPMax;
+        }
+        if (this.HP < 0) {
+            this.HP = 0;
+        }
+
+        this.hpBar.width = (this.HP / this.HPMax) * this.width;
     }
 }

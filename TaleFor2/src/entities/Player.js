@@ -37,4 +37,7 @@ export default class Player {
         this.sprite.body.velocity.normalize().scale(this.speed);
     }
 
+    recibirDano(amount = 1) {
+        this.scene.hpBar.modifyHP(amount);
+    }
 }   
