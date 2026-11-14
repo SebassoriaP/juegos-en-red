@@ -78,6 +78,7 @@ export default class GameScene extends Phaser.Scene {
     update() {
         this.player1.update();
         this.player2.update();
+        this.obstacle.update();
     }
 
     handleCollision(playerSprite, obstacleSprite) {

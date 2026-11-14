@@ -13,10 +13,29 @@ export default class Obstacle {
     }
 
     update() {
+        // Esto evita que se ejecute cuando se autodestruye
+        if (!this.sprite || !this.sprite.active) return; 
 
+        // Tamaño Pantalla
+        const gameWidth = this.scene.scale.width;
+        const gameHeight = this.scene.scale.height;
+        
+        // Tamaño objeto
+        const objWidth = this.sprite.width;
+        const objHeight = this.sprite.height;
+
+        // Comprobar Salida
+        if (
+            this.sprite.x < -objWidth ||           // Salió por la izquierda
+            this.sprite.x > gameWidth + objWidth || // Salió por la derecha
+            this.sprite.y < -objHeight ||          // Salió por arriba
+            this.sprite.y > gameHeight + objHeight  // Salió por abajo
+        ) {
+            this.destroy();
+        }
     }
-    
     destroy() {
+        console.log("Objeto destruido");
         this.sprite.destroy();
     }
 

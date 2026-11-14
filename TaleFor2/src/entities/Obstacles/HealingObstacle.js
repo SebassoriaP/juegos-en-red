@@ -9,11 +9,7 @@ export default class HealingObstacle extends Obstacle {
     }
 
     update() {
-
-    }
-    
-    destroy() {
-        this.sprite.destroy();
+        super.update();
     }
 
     executeCollision(player){

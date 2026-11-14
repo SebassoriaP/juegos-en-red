@@ -9,11 +9,7 @@ export default class CursedObstacle extends Obstacle {
     }
 
     update() {
-
-    }
-    
-    destroy() {
-        this.sprite.destroy();
+        super.update();
     }
 
     executeCollision(player){
