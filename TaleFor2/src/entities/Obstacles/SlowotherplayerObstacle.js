@@ -4,7 +4,7 @@ export default class SlowotherplayerObstacle extends Obstacle {
 
     constructor(scene, x, y, texture, direction, scale = 1) {
         super(scene, x, y, texture, direction, scale);
-        this.sprite.setTint(0xFFFF00); // Cambia el color del obstáculo a naranja para indicar que es de ralentización
+        this.sprite.setTint(0xFFAA00); // Cambia el color del obstáculo a naranja para indicar que es de ralentización
         this.dmg = -1; // Cantidad de vida que restaura el obstáculo
     }
 
