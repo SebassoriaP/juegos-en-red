@@ -73,7 +73,7 @@ export default class GameScene extends Phaser.Scene {
             this
         );
 
-        this.Obstacle_Manager = new Obstacle_Manager(this, 1000, 0.0, 0.01, true);
+        this.Obstacle_Manager = new Obstacle_Manager(this, 1000, 0.0, 0.01, false);
     }
 
     update() {

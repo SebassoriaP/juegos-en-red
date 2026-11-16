@@ -43,19 +43,21 @@ export default class Obstacle_Manager {
         const randomValue = Math.random();
         const chance = this.initial_chance + this.chance_increment * this.reps;
 
+        const randomX = Math.random(); // Posición X aleatoria (800 o 0)
         const randomY = Phaser.Math.Between(50, 450);
+
         if (randomValue < chance) {
             let obstacle = this.spawnObstacle(Math.floor(Math.random() * 3), 
-            800, randomY, 
-            {x: -1, y: 0}, 
+            randomX < 0.5 ? 800 : 0, randomY, 
+            {x: randomX < 0.5 ? -1 : 1, y: 0}, 
             0.5
             );
 
             this.scene.addObstacle(obstacle);
         }else {
             let obstacle = this.spawnObstacle(10, 
-            800, randomY, 
-            {x: -1, y: 0}, 
+            randomX < 0.5 ? 800 : 0, randomY, 
+            {x: randomX < 0.5 ? -1 : 1, y: 0}, 
             0.5
             );
             
