@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import Player from '../entities/Player.js';
 import HPBar from '../entities/HPBar.js';
+import Obstacle_Manager from '../entities/Obstacle_Manager.js';
 import Obstacle from '../entities/Obstacles/Obstacle.js';
 import HealingObstacle from '../entities/Obstacles/HealingObstacle.js';
 import CursedObstacle from '../entities/Obstacles/CursedObstacle.js';
@@ -62,30 +63,34 @@ export default class GameScene extends Phaser.Scene {
         this.player2.controls = this.controls2;
 
 
-        this.obstacle = new CursedObstacle(this, 800, 300, 'obstacle_texture', {x: -1, y: 0}, 0.5);
+        this.obstacles = this.add.group();
         // Para hacer que colisionen, mejorar en el futuro para manejar grupos
         this.physics.add.overlap(
             this.playerGroup, 
-            this.obstacle.sprite, 
+            this.obstacles, 
             this.handleCollision, // Función que se ejecutará al chocar
             null, 
             this
         );
 
-        
+        this.Obstacle_Manager = new Obstacle_Manager(this, 1000, 0.0, 0.01, true);
     }
 
     update() {
         this.player1.update();
         this.player2.update();
-        this.obstacle.update();
     }
 
     handleCollision(playerSprite, obstacleSprite) {
-        // playerSprite y obstacleSprite son los objetos de Phaser nativos, 
-        // pero puedes llamar a los métodos de tus clases así:
+        const player = playerSprite.parentClass;
+        const obstacle = obstacleSprite.parentClass;
         
-        this.obstacle.executeCollision(this.player1);
-        this.obstacle.destroy();
+        obstacle.executeCollision(player);
+        
+        obstacle.destroy();
+    }
+
+    addObstacle(obstacle) {
+        this.obstacles.add(obstacle.sprite);
     }
 }

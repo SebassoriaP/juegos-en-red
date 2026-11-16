@@ -10,6 +10,8 @@ export default class Obstacle {
 
         this.sprite.body.setVelocity(direction.x * this.speed, direction.y * this.speed);
         this.sprite.body.velocity.normalize().scale(this.speed);
+
+        this.sprite.parentClass = this;
     }
 
     update() {
