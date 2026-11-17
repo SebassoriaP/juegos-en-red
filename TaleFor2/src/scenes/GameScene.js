@@ -96,4 +96,10 @@ export default class GameScene extends Phaser.Scene {
     addObstacle(obstacle) {
         this.obstacles.add(obstacle.sprite);
     }
+
+    getRandomPlayerCoordinates() {
+        const players = [this.player1, this.player2];
+        const randomPlayer = Phaser.Utils.Array.GetRandom(players);
+        return { x: randomPlayer.sprite.x, y: randomPlayer.sprite.y };
+    }
 }

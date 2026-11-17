@@ -2,8 +2,8 @@ import Obstacle from './Obstacle.js';
 
 export default class SlowplayerObstacle extends Obstacle {
 
-    constructor(scene, x, y, texture, direction, scale = 1) {
-        super(scene, x, y, texture, direction, scale);
+    constructor(scene, x, y, texture, scale = 1) {
+        super(scene, x, y, texture, scale);
         this.sprite.setTint(0x0000FF); // Cambia el color del obstáculo a azul para indicar que es de ralentización
         this.dmg = 0; // Cantidad de vida que restaura el obstáculo
     }

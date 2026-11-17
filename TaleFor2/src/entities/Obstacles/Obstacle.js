@@ -1,6 +1,6 @@
 export default class Obstacle {
 
-    constructor(scene, x, y, texture, direction, scale = 1, speed = 200) {
+    constructor(scene, x, y, texture, scale = 1, speed = 200) {
         this.scene = scene;
         this.speed = speed;
         this.dmg = 1; // Daño que inflige el obstáculo
@@ -8,7 +8,9 @@ export default class Obstacle {
         this.sprite = scene.physics.add.sprite(x, y, texture);
         this.sprite.setScale(scale);
 
-        const anguloRadianes = Math.atan2(direction.y, direction.x);
+        this.direction = this.aimToPlayer();
+
+        const anguloRadianes = Math.atan2(this.direction.y, this.direction.x);
         this.sprite.setRotation(anguloRadianes);
 
         const velocidadX = Math.cos(anguloRadianes) * this.speed;
@@ -50,5 +52,25 @@ export default class Obstacle {
         return player.recibirDano(-this.dmg);
     }
 
+    aimToPlayer(){
+        const offset = 50;
+
+        const playerCoordinates = this.scene.getRandomPlayerCoordinates();
+
+        const targetX = playerCoordinates.x + Phaser.Math.Between(-offset, offset);
+        const targetY = playerCoordinates.y + Phaser.Math.Between(-offset, offset);
+
+        let dirX = targetX - this.sprite.x;
+        let dirY = targetY - this.sprite.y;
+
+        const distancia = Math.sqrt((dirX * dirX) + (dirY * dirY));
+        
+        if (distancia > 0) {
+            dirX = dirX / distancia;
+            dirY = dirY / distancia;
+        }
+
+        return { x: dirX, y: dirY };
+    }
 }
 
