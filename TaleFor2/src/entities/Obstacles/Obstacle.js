@@ -1,14 +1,19 @@
 export default class Obstacle {
 
-    constructor(scene, x, y, texture, direction, scale = 1) {
+    constructor(scene, x, y, texture, direction, scale = 1, speed = 200) {
         this.scene = scene;
-        this.speed = 200;
+        this.speed = speed;
         this.dmg = 1; // Daño que inflige el obstáculo
 
         this.sprite = scene.physics.add.sprite(x, y, texture);
         this.sprite.setScale(scale);
 
-        this.sprite.body.setVelocity(direction.x * this.speed, direction.y * this.speed);
+        const anguloRadianes = Math.atan2(direction.y, direction.x);
+        this.sprite.setRotation(anguloRadianes);
+
+        const velocidadX = Math.cos(anguloRadianes) * this.speed;
+        const velocidadY = Math.sin(anguloRadianes) * this.speed;
+        this.sprite.setVelocity(velocidadX, velocidadY);
         this.sprite.body.velocity.normalize().scale(this.speed);
 
         this.sprite.parentClass = this;

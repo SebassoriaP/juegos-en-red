@@ -3,6 +3,8 @@ import HealingObstacle from '../entities/Obstacles/HealingObstacle.js';
 import CursedObstacle from '../entities/Obstacles/CursedObstacle.js';
 import SlowplayerObstacle from '../entities/Obstacles/SlowplayerObstacle.js';
 import SlowotherplayerObstacle from '../entities/Obstacles/SlowotherplayerObstacle.js';
+import SpeedupplayerObstacle from '../entities/Obstacles/SpeedupplayerObstacle.js';
+import SpeedupotherplayerObstacle from '../entities/Obstacles/SpeedupotherplayerObstacle.js';
 
 export default class Obstacle_Manager {
 
@@ -30,7 +32,7 @@ export default class Obstacle_Manager {
 
     onTimerTick() {
         if(this.debug) {
-            let obstacle = this.spawnObstacle(3, 
+            let obstacle = this.spawnObstacle(4, 
             800, 300, 
             {x: -1, y: 0}, 
             0.5
@@ -47,7 +49,7 @@ export default class Obstacle_Manager {
         const randomY = Phaser.Math.Between(50, 450);
 
         if (randomValue < chance) {
-            let obstacle = this.spawnObstacle(Math.floor(Math.random() * 3), 
+            let obstacle = this.spawnObstacle(Math.floor(Math.random() * 6), 
             randomX < 0.5 ? 800 : 0, randomY, 
             {x: randomX < 0.5 ? -1 : 1, y: 0}, 
             0.5
@@ -77,19 +79,25 @@ export default class Obstacle_Manager {
         let obstacle;
         switch (type) {
             case 0:
-                obstacle = new HealingObstacle(this.scene, x, y, 'obstacle_texture', direction, scale);
+                obstacle = new HealingObstacle(this.scene, x, y, 'flecha', direction, scale);
                 break;
             case 1:
-                obstacle = new CursedObstacle(this.scene, x, y, 'obstacle_texture', direction, scale);
+                obstacle = new CursedObstacle(this.scene, x, y, 'flecha', direction, scale);
                 break;
             case 2:
-                obstacle = new SlowplayerObstacle(this.scene, x, y, 'obstacle_texture', direction, scale);
+                obstacle = new SlowplayerObstacle(this.scene, x, y, 'flecha', direction, scale);
                 break;
             case 3:
-                obstacle = new SlowotherplayerObstacle(this.scene, x, y, 'obstacle_texture', direction, scale);
+                obstacle = new SlowotherplayerObstacle(this.scene, x, y, 'flecha', direction, scale);
+                break;
+            case 4:
+                obstacle = new SpeedupplayerObstacle(this.scene, x, y, 'flecha', direction, scale);
+                break;
+            case 5:
+                obstacle = new SpeedupotherplayerObstacle(this.scene, x, y, 'flecha', direction, scale);
                 break;
             default:
-                obstacle = new Obstacle(this.scene, x, y, 'obstacle_texture', direction, scale);
+                obstacle = new Obstacle(this.scene, x, y, 'flecha', direction, scale);
         }
         return obstacle;
     }

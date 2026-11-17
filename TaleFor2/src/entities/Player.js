@@ -69,6 +69,13 @@ export default class Player {
         });
     }
 
+    speedUp(duration = 1000, speedFactor = 1.5) {
+        if (this.slowed) {
+            return; // Si ya está ralentizado, no hacer nada
+        }
+        this.slowDown(duration, speedFactor);
+    }
+
     liftSlowdown() {
         this.speed = this.permanentSpeed;
         this.slowed = false;

@@ -17,6 +17,7 @@ export default class GameScene extends Phaser.Scene {
         this.load.image('player1', 'assets/images/player1.png');
         this.load.image('player2', 'assets/images/player2.png');
         this.load.image('obstacle_texture', 'assets/images/obstacle_test.png');
+        this.load.image('flecha', 'assets/images/Flecha.png');
     }
 
     create() {
@@ -73,7 +74,7 @@ export default class GameScene extends Phaser.Scene {
             this
         );
 
-        this.Obstacle_Manager = new Obstacle_Manager(this, 1000, 0.0, 0.01, false);
+        this.Obstacle_Manager = new Obstacle_Manager(this, 500, 0.0, 0.01, true);
     }
 
     update() {
