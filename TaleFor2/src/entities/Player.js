@@ -14,6 +14,17 @@ export default class Player {
         this.sprite.parentClass = this;
 
         this.slowed = false;
+
+
+        this.invincible = false;
+        this.invincibleTimer = null;
+        this.blinkingTimer = scene.time.addEvent({
+            delay: 200, // Intervalo de parpadeo en milisegundos
+            callback: this.switchVisibility,
+            callbackScope: this,
+            loop: true
+        });
+        this.invincibleDuration = 2000; // Duración de la invencibilidad en milisegundos
     }
 
     update() {
@@ -43,10 +54,41 @@ export default class Player {
 
         // Evita que las diagonales sean más rápidas
         this.sprite.body.velocity.normalize().scale(this.speed);
+
+
+    }
+
+    switchVisibility(){
+        if (this.invincible) {
+            this.sprite.alpha = this.sprite.alpha === 1 ? 0.5 : 1; // Alterna entre visible e invisible
+        }else{
+            this.sprite.alpha = 1;
+        }
     }
 
     recibirDano(amount = 1) {
+        if(this.invincible) {
+            return false; // Si el jugador es invencible, no recibe daño ni efectos
+        }
+
         this.scene.hpBar.modifyHP(amount);
+
+        if(amount < 0) {
+            this.invincible = true;
+            // this.sprite.setTint(0x888888); // Cambia el color del jugador a gris para indicar invencibilidad
+            this.invincibleTimer = this.scene.time.addEvent({
+                delay: this.invincibleDuration,
+                callback: () => {   // Función de invenvibilidad
+                    this.invincible = false;
+                    this.sprite.setTint(0xffffff); // Restaura el color original del jugador
+                    this.invincibleTimer = null;
+                },
+                callbackScope: this,
+                loop: false
+            });
+        }
+
+        return true;
     }
 
     setOtherPlayer(otherPlayer) {
@@ -55,7 +97,7 @@ export default class Player {
 
     slowDown(duration = 1000, slowFactor = 0.5) {
         if (this.slowed) {
-            return; // Si ya está ralentizado, no hacer nada
+            return false; // Si ya está ralentizado, no hacer nada
         }
 
         this.slowed = true;
@@ -67,13 +109,18 @@ export default class Player {
             callbackScope: this,
             loop: false
         });
+
+        return true;
     }
 
     speedUp(duration = 1000, speedFactor = 1.5) {
         if (this.slowed) {
-            return; // Si ya está ralentizado, no hacer nada
+            return false; // Si ya está ralentizado, no hacer nada
         }
-        this.slowDown(duration, speedFactor);
+        let result = this.slowDown(duration, speedFactor);
+        this.sprite.setTint('0xEAFF00'); // Cambia el color del jugador a amarillo para indicar aceleración
+
+        return result;
     }
 
     liftSlowdown() {

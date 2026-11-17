@@ -74,7 +74,7 @@ export default class GameScene extends Phaser.Scene {
             this
         );
 
-        this.Obstacle_Manager = new Obstacle_Manager(this, 500, 0.0, 0.01, true);
+        this.Obstacle_Manager = new Obstacle_Manager(this, 500, 0.0, 0.01, false);
     }
 
     update() {
@@ -86,9 +86,11 @@ export default class GameScene extends Phaser.Scene {
         const player = playerSprite.parentClass;
         const obstacle = obstacleSprite.parentClass;
         
-        obstacle.executeCollision(player);
+        let colision = obstacle.executeCollision(player);
         
-        obstacle.destroy();
+        if(colision) {
+            obstacle.destroy();
+        }
     }
 
     addObstacle(obstacle) {

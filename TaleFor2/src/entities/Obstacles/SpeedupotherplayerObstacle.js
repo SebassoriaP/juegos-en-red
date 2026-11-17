@@ -13,7 +13,7 @@ export default class SpeedupotherplayerObstacle extends Obstacle {
     }
 
     executeCollision(player){
-        player.otherPlayer.speedUp(3000, 3); 
+        return player.otherPlayer.speedUp(3000, 3); 
     }
 
 }

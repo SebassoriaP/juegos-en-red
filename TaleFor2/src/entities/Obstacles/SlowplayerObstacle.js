@@ -13,7 +13,7 @@ export default class SlowplayerObstacle extends Obstacle {
     }
 
     executeCollision(player){
-        player.slowDown(3000, 0.5); // Ralentiza al jugador al 50% de su velocidad durante 3 segundos
+        return player.slowDown(3000, 0.5); // Ralentiza al jugador al 50% de su velocidad durante 3 segundos
     }
 
 }

@@ -47,7 +47,7 @@ export default class Obstacle {
     }
 
     executeCollision(player){
-        player.recibirDano(-this.dmg);
+        return player.recibirDano(-this.dmg);
     }
 
 }
