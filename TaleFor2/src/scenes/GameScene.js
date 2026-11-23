@@ -5,6 +5,7 @@ import Obstacle_Manager from '../entities/Obstacle_Manager.js';
 import Obstacle from '../entities/Obstacles/Obstacle.js';
 import HealingObstacle from '../entities/Obstacles/HealingObstacle.js';
 import CursedObstacle from '../entities/Obstacles/CursedObstacle.js';
+import Timer from '../entities/Timer.js';
 
 export default class GameScene extends Phaser.Scene {
 
@@ -46,7 +47,9 @@ export default class GameScene extends Phaser.Scene {
         this.playerGroup = this.add.group([this.player1.sprite, this.player2.sprite]);
 
         this.hpBar = new HPBar(this, 20, 20);
-        this.hpBar.modifyHP(-19);
+        // this.hpBar.modifyHP(-19);
+
+        this.timer = new Timer(this, 0, 10);
 
         // jugador 1
         this.controls1 = this.input.keyboard.addKeys({
