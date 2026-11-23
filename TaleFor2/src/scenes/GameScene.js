@@ -77,7 +77,7 @@ export default class GameScene extends Phaser.Scene {
             this
         );
 
-        this.Obstacle_Manager = new Obstacle_Manager(this, 500, 0.0, 0.01, false);
+        this.Obstacle_Manager = new Obstacle_Manager(this, 500, 0.0, 0.01);
 
 
         this.input.keyboard.on('keydown-ESC', () => {
