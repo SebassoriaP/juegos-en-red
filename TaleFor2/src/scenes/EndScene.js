@@ -6,6 +6,12 @@ export default class EndScene extends Phaser.Scene {
         super('EndScene');
     }
 
+    preload() {
+
+        this.load.image('gameOverLogo', 'assets/images/game-over.png');
+
+    }
+
     init(data) {
         this.winner = data.winner;
     }
@@ -38,10 +44,19 @@ export default class EndScene extends Phaser.Scene {
             });
         }
 
-        this.add.text(400, 195, title, {
-            fontSize: '48px',
-            color: '#ffffff'
-        }).setOrigin(0.5);
+        if (this.winner) {
+
+            this.add.text(400, 195, title, {
+                fontSize: '48px',
+                color: '#ffffff'
+            }).setOrigin(0.5);
+
+        } else {
+
+            this.add.image(400, 195, 'gameOverLogo')
+                .setDisplaySize(550, 150);
+
+        }
 
 
         this.add.text(400, 405, 'ENTER - Volver a jugar', {
