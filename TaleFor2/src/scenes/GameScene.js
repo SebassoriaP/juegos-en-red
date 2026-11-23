@@ -19,6 +19,7 @@ export default class GameScene extends Phaser.Scene {
         this.load.image('player2', 'assets/images/player2.png');
         this.load.image('obstacle_texture', 'assets/images/obstacle_test.png');
         this.load.image('flecha', 'assets/images/Flecha.png');
+        this.load.image('rotator_texture', 'assets/images/Rotador.png');
     }
 
     create() {
@@ -77,7 +78,7 @@ export default class GameScene extends Phaser.Scene {
             this
         );
 
-        this.Obstacle_Manager = new Obstacle_Manager(this, 500, 0.0, 0.01);
+        this.Obstacle_Manager = new Obstacle_Manager(this, 500, 0.0, 0.01, 0.2, false);
 
 
         this.input.keyboard.on('keydown-ESC', () => {

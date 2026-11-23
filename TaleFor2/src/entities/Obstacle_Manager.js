@@ -5,6 +5,7 @@ import SlowplayerObstacle from '../entities/Obstacles/SlowplayerObstacle.js';
 import SlowotherplayerObstacle from '../entities/Obstacles/SlowotherplayerObstacle.js';
 import SpeedupplayerObstacle from '../entities/Obstacles/SpeedupplayerObstacle.js';
 import SpeedupotherplayerObstacle from '../entities/Obstacles/SpeedupotherplayerObstacle.js';
+import Rotator from '../entities/Obstacles/Rotator.js';
 
 export default class Obstacle_Manager {
 
@@ -33,9 +34,9 @@ export default class Obstacle_Manager {
 
     onTimerTick() {
         if(this.debug) {
-            let obstacle = this.spawnObstacle(4, 
+            let obstacle = this.spawnObstacle(6, 
             800, 300, 
-            {x: -1, y: 0}, 
+            false,
             0.5
             );
             
@@ -79,25 +80,28 @@ export default class Obstacle_Manager {
         let obstacle;
         switch (type) {
             case 0:
-                obstacle = new HealingObstacle(this.scene, x, y, 'flecha', scale);
+                obstacle = new HealingObstacle(this.scene, x, y, 'flecha', false, scale);
                 break;
             case 1:
-                obstacle = new CursedObstacle(this.scene, x, y, 'flecha', scale);
+                obstacle = new CursedObstacle(this.scene, x, y, 'flecha', false, scale);
                 break;
             case 2:
-                obstacle = new SlowplayerObstacle(this.scene, x, y, 'flecha', scale);
+                obstacle = new SlowplayerObstacle(this.scene, x, y, 'flecha', false, scale);
                 break;
             case 3:
-                obstacle = new SlowotherplayerObstacle(this.scene, x, y, 'flecha', scale);
+                obstacle = new SlowotherplayerObstacle(this.scene, x, y, 'flecha', false, scale);
                 break;
             case 4:
-                obstacle = new SpeedupplayerObstacle(this.scene, x, y, 'flecha', scale);
+                obstacle = new SpeedupplayerObstacle(this.scene, x, y, 'flecha', false, scale);
                 break;
             case 5:
-                obstacle = new SpeedupotherplayerObstacle(this.scene, x, y, 'flecha', scale);
+                obstacle = new SpeedupotherplayerObstacle(this.scene, x, y, 'flecha', false, scale);
+                break;
+            case 6:
+                obstacle = new Rotator(this.scene, x, y, 'rotator_texture', true, scale * 4, -50, 90);
                 break;
             default:
-                obstacle = new Obstacle(this.scene, x, y, 'flecha', scale);
+                obstacle = new Obstacle(this.scene, x, y, 'flecha', false, scale);
         }
         return obstacle;
     }

@@ -1,9 +1,10 @@
 export default class Obstacle {
 
-    constructor(scene, x, y, texture, scale = 1, speed = 200) {
+    constructor(scene, x, y, texture, persistent, scale = 1, speed = 200) {
         this.scene = scene;
         this.speed = speed;
         this.dmg = 1; // Daño que inflige el obstáculo
+        this.persistent = persistent;
 
         this.sprite = scene.physics.add.sprite(x, y, texture);
         this.sprite.setScale(scale);
@@ -49,7 +50,8 @@ export default class Obstacle {
     }
 
     executeCollision(player){
-        return player.recibirDano(-this.dmg);
+        let colision = player.recibirDano(-this.dmg);
+        return this.persistent ? false : colision;
     }
 
     aimToPlayer(){
