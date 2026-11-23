@@ -45,8 +45,8 @@ export default class GameScene extends Phaser.Scene {
         this.player2.setOtherPlayer(this.player1);
         this.playerGroup = this.add.group([this.player1.sprite, this.player2.sprite]);
 
-        this.hpBar = new HPBar(this, 20, 20, 700, 40);
-        this.hpBar.modifyHP(-10);
+        this.hpBar = new HPBar(this, 20, 20);
+        this.hpBar.modifyHP(-19);
 
         // jugador 1
         this.controls1 = this.input.keyboard.addKeys({
@@ -81,7 +81,7 @@ export default class GameScene extends Phaser.Scene {
 
             this.scene.pause();
             this.scene.launch('PauseScene');
-            
+
         });
 
 
@@ -90,6 +90,12 @@ export default class GameScene extends Phaser.Scene {
     update() {
         this.player1.update();
         this.player2.update();
+
+        if (this.hpBar.HP <= 0) {
+
+            this.scene.start('EndScene', { winner: false });
+
+        }
     }
 
     handleCollision(playerSprite, obstacleSprite) {
