@@ -34,8 +34,8 @@ export default class GameScene extends Phaser.Scene {
 
         // Límites Físicoss
         this.physics.world.setBounds(
-            50, 50,
-            700, 500
+            50, 25,
+            700, 400
         );
 
         this.player1 = new Player(this, 250, 300, 'player1', null);
@@ -75,6 +75,16 @@ export default class GameScene extends Phaser.Scene {
         );
 
         this.Obstacle_Manager = new Obstacle_Manager(this, 500, 0.0, 0.01, false);
+
+
+        this.input.keyboard.on('keydown-ESC', () => {
+
+            this.scene.pause();
+            this.scene.launch('PauseScene');
+            
+        });
+
+
     }
 
     update() {
