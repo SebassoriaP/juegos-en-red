@@ -22,14 +22,14 @@
             this.hpBarBackground = this.scene.add.rectangle(
                 this.x, this.y,
                 this.width, this.height, 
-                0x54161E
+                0x2D1B45
             ).setOrigin(0, 0.5); // Mismo origen para que coincidan perfectamente
 
 
             this.hpBar = this.scene.add.rectangle(
                 this.x, this.y,
                 this.width, this.height, 
-                0xF7359B
+                0xA855F7
             ).setOrigin(0, 0.5); 
 
             this.hpBar.width = (this.HP / this.HPMax) * this.width;

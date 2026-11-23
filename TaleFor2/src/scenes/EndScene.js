@@ -12,30 +12,65 @@ export default class EndScene extends Phaser.Scene {
 
     create() {
 
+        this.cameras.main.setBackgroundColor('#000000');
+
         const title = this.winner ? 'VICTORIA' : 'GAME OVER';
 
-        this.add.text(400, 220, title, {
+        if (!this.winner) {
+
+            // Corazon
+            const heart1 = this.add.image(360, 275, 'player1');
+            const heart2 = this.add.image(440, 275, 'player2');
+
+            const defeatText = this.add.text(400, 335, 'No habéis sobrevivido...', {
+                fontFamily: 'monospace',
+                fontSize: '20px',
+                color: '#d1d1d1'
+            }).setOrigin(0.5);
+
+            this.tweens.add({
+                targets: [heart1, heart2, defeatText],
+                alpha: { from: 0.85, to: 0.35 },
+                duration: 1200,
+                yoyo: true,
+                repeat: -1,
+                ease: 'Sine.easeInOut'
+            });
+        }
+
+        this.add.text(400, 195, title, {
             fontSize: '48px',
             color: '#ffffff'
         }).setOrigin(0.5);
 
-        this.add.text(400, 330, 'ENTER - Volver a jugar', {
+
+        this.add.text(400, 405, 'ENTER - Volver a jugar', {
             fontSize: '24px',
             color: '#ffffff'
         }).setOrigin(0.5);
 
-        this.add.text(400, 380, 'M - Menú principal', {
+
+        this.add.text(400, 455, 'M - Menú principal', {
             fontSize: '24px',
             color: '#ffffff'
         }).setOrigin(0.5);
 
-        this.input.keyboard.once('keydown-ENTER', () => {
+        const restartGame = () => {
+
+            this.input.keyboard.off('keydown-M', returnMenu);
             this.scene.start('GameScene');
-        });
 
-        this.input.keyboard.once('keydown-M', () => {
+        };
+
+        const returnMenu = () => {
+
+            this.input.keyboard.off('keydown-ENTER', restartGame);
             this.scene.start('MenuScene');
-        });
+
+        };
+
+        this.input.keyboard.once('keydown-ENTER', restartGame);
+        this.input.keyboard.once('keydown-M', returnMenu);
 
     }
 }
