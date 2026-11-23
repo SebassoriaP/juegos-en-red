@@ -8,12 +8,13 @@ import SpeedupotherplayerObstacle from '../entities/Obstacles/Speedupotherplayer
 
 export default class Obstacle_Manager {
 
-    constructor(scene, frequencey, initial_chance, chance_increment, debug = false) {
+    constructor(scene, frequencey, initial_chance, chance_increment, maxChance = 0.2, debug = false) {
 
         this.scene = scene;
         this.frequencey = frequencey;
         this.initial_chance = initial_chance;
         this.chance_increment = chance_increment;
+        this.maxChance = maxChance;
         this.reps = 0;
 
         this.timer = this.scene.time.addEvent({
@@ -43,7 +44,7 @@ export default class Obstacle_Manager {
         }
 
         const randomValue = Math.random();
-        const chance = this.initial_chance + this.chance_increment * this.reps;
+        const chance = Math.min(this.initial_chance + this.chance_increment * this.reps, this.maxChance);
 
         const randomX = Math.random(); // Posición X aleatoria (800 o 0)
         const randomY = Phaser.Math.Between(50, 450);
