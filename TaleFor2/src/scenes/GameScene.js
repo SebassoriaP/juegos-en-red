@@ -49,7 +49,7 @@ export default class GameScene extends Phaser.Scene {
         this.hpBar = new HPBar(this, 20, 20);
         // this.hpBar.modifyHP(-19);
 
-        this.timer = new Timer(this, 0, 30);
+        this.timer = new Timer(this, 0, 120);
 
         // jugador 1
         this.controls1 = this.input.keyboard.addKeys({
@@ -91,8 +91,16 @@ export default class GameScene extends Phaser.Scene {
     }
 
     update() {
+
         this.player1.update();
         this.player2.update();
+
+        this.Obstacle_Manager.update();
+        this.obstacles.getChildren().slice().forEach(obstacle => {
+
+            obstacle.parentClass.update();
+
+        });
 
         if (this.hpBar.HP <= 0) {
 
