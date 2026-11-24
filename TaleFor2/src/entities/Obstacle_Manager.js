@@ -9,20 +9,28 @@ import Rotator from '../entities/Obstacles/Rotator.js';
 
 export default class Obstacle_Manager {
 
-    constructor(scene, frequencey, initial_chance, chance_increment, maxChance = 0.2, debug = false) {
+    constructor(scene, frequency, frequency2, initial_chance, chance_increment, rotatorTime, maxChance = 0.2, debug = false) {
 
         this.scene = scene;
-        this.frequencey = frequencey;
+        this.frequencyArrows = frequency;
+        this.frequencyRotators = frequency2;
         this.initial_chance = initial_chance;
         this.chance_increment = chance_increment;
         this.maxChance = maxChance;
         this.reps = 0;
 
         this.timer = this.scene.time.addEvent({
-            delay: this.frequencey,     // Tiempo en milisegundos (x)
+            delay: this.frequencyArrows,     // Tiempo en milisegundos (x)
             callback: this.onTimerTick, // Función
             callbackScope: this,
             loop: true
+        });
+
+        this.timer = this.scene.time.addEvent({
+            delay: rotatorTime,     // Tiempo en milisegundos (x)
+            callback: this.startRotators, // Función
+            callbackScope: this,
+            loop: false
         });
 
         this.debug = debug;
@@ -34,7 +42,7 @@ export default class Obstacle_Manager {
 
     onTimerTick() {
         if(this.debug) {
-            let obstacle = this.spawnObstacle(6, 
+            let obstacle = this.spawnObstacle(5, 
             800, 300, 
             false,
             0.5
@@ -97,13 +105,38 @@ export default class Obstacle_Manager {
             case 5:
                 obstacle = new SpeedupotherplayerObstacle(this.scene, x, y, 'flecha', false, scale);
                 break;
-            case 6:
-                obstacle = new Rotator(this.scene, x, y, 'rotator_texture', true, scale * 4, -50, 90);
-                break;
             default:
                 obstacle = new Obstacle(this.scene, x, y, 'flecha', false, scale);
         }
         return obstacle;
+    }
+
+    startRotators(){
+        this.timer = this.scene.time.addEvent({
+            delay: this.frequencyRotators,     // Tiempo en milisegundos (x)
+            callback: this.spawnRotator, // Función
+            callbackScope: this,
+            loop: true
+        });
+    }
+
+    spawnRotator() {
+        let rotator;
+        let randomSpeed = Phaser.Math.Between(100, 300);
+        if(Math.random() > 0.5) {
+            const randomX = Math.random();
+            const randomY = Phaser.Math.Between(50, 450);
+            const direction = new Phaser.Math.Vector2(randomX < 0.5 ? -1 : 1, 0);
+            const acceleration = new Phaser.Math.Vector2(-100, 0); // Aceleración negativa en la dirección opuesta al movimiento
+            rotator = new Rotator(this.scene, randomX < 0.5 ? 800 : 0, randomY, 'rotator_texture', false, direction, 2, randomSpeed, acceleration, 90);
+        }else{
+            const randomX = Phaser.Math.Between(50, 750);
+            const randomY = Math.random();
+            const direction = new Phaser.Math.Vector2(0, randomY < 0.5 ? -1 : 1);
+            const acceleration = new Phaser.Math.Vector2(0, -100);
+            rotator = new Rotator(this.scene, randomX, randomY < 0.5 ? 600 : 0, 'rotator_texture', false, direction, 2, randomSpeed, acceleration, 0);
+        }
+        this.scene.addObstacle(rotator);
     }
 
 }

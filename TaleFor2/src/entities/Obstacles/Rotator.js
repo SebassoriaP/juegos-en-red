@@ -2,18 +2,26 @@ import Obstacle from './Obstacle.js';
 
 export default class Rotator extends Obstacle {
 
-    constructor(scene, x, y, texture, persistent, scale = 1, acceleration = -50, rotationSpeed = 90) {
-        super(scene, x, y, texture, persistent, scale);
+    constructor(scene, x, y, texture, persistent, direction, scale = 1, speed = 100, acceleration = -100, rotation = 90) {
+        super(scene, x, y, texture, persistent, scale, speed);
+
         this.acceleration = acceleration;
-        this.rotationSpeed = rotationSpeed;
-        this.sprite.setAngularVelocity(rotationSpeed);
 
         const dir = this.sprite.body.velocity.clone().normalize();
 
-        // Aplicamos la aceleración negativa en esa misma dirección (efecto boomerang)
+        this.sprite.setAngle(rotation);
+
+        if (Math.abs(rotation % 180) === 90) {
+            
+            this.sprite.body.setSize(this.sprite.height, this.sprite.width, true);
+        }
+
+        this.sprite.setVelocity(direction.x, direction.y);
+        this.sprite.body.velocity.normalize().scale(this.speed);
+
         this.sprite.setAcceleration(
-            dir.x * this.acceleration,
-            dir.y * this.acceleration
+            dir.x * this.acceleration.x,
+            dir.y * this.acceleration.y
         );
     }
 
