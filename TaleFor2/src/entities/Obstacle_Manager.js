@@ -20,14 +20,14 @@ export default class Obstacle_Manager {
         this.reps = 0;
         this.frequencyToIncrement = frequencyToIncrement;
 
-        this.timer = this.scene.time.addEvent({
+        this.timerArrows = this.scene.time.addEvent({
             delay: this.frequencyArrows,     // Tiempo en milisegundos (x)
             callback: this.onTimerTick, // Función
             callbackScope: this,
             loop: true
         });
 
-        this.timer = this.scene.time.addEvent({
+        this.timerStartRotators = this.scene.time.addEvent({
             delay: rotatorTime,     // Tiempo en milisegundos (x)
             callback: this.startRotators, // Función
             callbackScope: this,
@@ -38,30 +38,31 @@ export default class Obstacle_Manager {
     }
 
     update() {
-
+        /*
         const seconds = this.scene.timer.seconds;
 
         if (seconds >= 110) {
 
-            this.timer.delay = 200;
+            this.timerArrows.delay = 200;
 
         } else if (seconds >= 90) {
 
-            this.timer.delay = 250;
+            this.timerArrows.delay = 250;
 
         } else if (seconds >= 60) {
 
-            this.timer.delay = 300;
+            this.timerArrows.delay = 300;
 
         } else if (seconds >= 30) {
 
-            this.timer.delay = 400;
+            this.timerArrows.delay = 400;
 
         } else {
 
-            this.timer.delay = this.frequencey;
+            this.timerArrows.delay = this.frequencey;
 
         }
+        */
     }
 
     onTimerTick() {
@@ -105,8 +106,8 @@ export default class Obstacle_Manager {
     }
     
     destroy() {
-        if (this.timer) {
-            this.timer.destroy();
+        if (this.timerArrows) {
+            this.timerArrows.destroy();
         }
     }
 
@@ -169,7 +170,8 @@ export default class Obstacle_Manager {
     }
 
     startRotators(){
-        this.timer = this.scene.time.addEvent({
+        console.log("Iniciando Rotators {this.frequencyRotators: " + this.frequencyRotators + "}");
+        this.timerRotators = this.scene.time.addEvent({
             delay: this.frequencyRotators,     // Tiempo en milisegundos (x)
             callback: this.spawnRotator, // Función
             callbackScope: this,
@@ -178,6 +180,7 @@ export default class Obstacle_Manager {
     }
 
     spawnRotator() {
+        console.log("Spawn Rotator");
         let rotator;
         let randomSpeed = Phaser.Math.Between(100, 300);
         if(Math.random() > 0.5) {
