@@ -49,7 +49,7 @@ export default class GameScene extends Phaser.Scene {
         this.hpBar = new HPBar(this, 20, 20);
         // this.hpBar.modifyHP(-19);
 
-        this.timer = new Timer(this, 0, 10);
+        this.timer = new Timer(this, 0, 30);
 
         // jugador 1
         this.controls1 = this.input.keyboard.addKeys({
@@ -97,6 +97,10 @@ export default class GameScene extends Phaser.Scene {
         if (this.hpBar.HP <= 0) {
 
             this.scene.start('EndScene', { winner: false });
+
+        } else if (this.timer.seconds >= this.timer.goalSeconds) {
+
+            this.scene.start('EndScene', { winner: true });
 
         }
     }
