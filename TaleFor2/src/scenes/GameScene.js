@@ -7,6 +7,8 @@ import HealingObstacle from '../entities/Obstacles/HealingObstacle.js';
 import CursedObstacle from '../entities/Obstacles/CursedObstacle.js';
 import Timer from '../entities/Timer.js';
 
+// Benjamin, Sebatián y Marcos
+
 export default class GameScene extends Phaser.Scene {
 
     constructor() {
