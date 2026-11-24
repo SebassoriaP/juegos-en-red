@@ -9,6 +9,7 @@ export default class EndScene extends Phaser.Scene {
     preload() {
 
         this.load.image('gameOverLogo', 'assets/images/game-over.png');
+        this.load.image('victoryLogo', 'assets/images/victoria.png');
 
     }
 
@@ -20,13 +21,33 @@ export default class EndScene extends Phaser.Scene {
 
         this.cameras.main.setBackgroundColor('#000000');
 
-        const title = this.winner ? 'VICTORIA' : 'GAME OVER';
+        const heart1 = this.add.image(360, 275, 'player1').setDepth(1);
+        const heart2 = this.add.image(440, 275, 'player2').setDepth(1);
 
-        if (!this.winner) {
+        if (this.winner) {
 
-            // Corazon
-            const heart1 = this.add.image(360, 275, 'player1');
-            const heart2 = this.add.image(440, 275, 'player2');
+            this.add.image(400, 195, 'victoryLogo')
+                .setDisplaySize(550, 150);
+
+            this.add.text(400, 335, '¡Habéis sobrevivido juntos!', {
+                fontFamily: 'monospace',
+                fontSize: '20px',
+                color: '#ffffff'
+            }).setOrigin(0.5);
+
+            this.tweens.add({
+                targets: [heart1, heart2],
+                scale: 1.25,
+                duration: 600,
+                yoyo: true,
+                repeat: -1,
+                ease: 'Sine.easeInOut'
+            });
+
+        } else {
+
+            this.add.image(400, 195, 'gameOverLogo')
+                .setDisplaySize(550, 150);
 
             const defeatText = this.add.text(400, 335, 'No habéis sobrevivido...', {
                 fontFamily: 'monospace',
@@ -42,19 +63,6 @@ export default class EndScene extends Phaser.Scene {
                 repeat: -1,
                 ease: 'Sine.easeInOut'
             });
-        }
-
-        if (this.winner) {
-
-            this.add.text(400, 195, title, {
-                fontSize: '48px',
-                color: '#ffffff'
-            }).setOrigin(0.5);
-
-        } else {
-
-            this.add.image(400, 195, 'gameOverLogo')
-                .setDisplaySize(550, 150);
 
         }
 

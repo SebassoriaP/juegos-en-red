@@ -1,20 +1,21 @@
 export default class Timer {
 
     constructor(scene, initialSeconds, goalSeconds){
+
         this.scene = scene;
         this.seconds = initialSeconds;
         this.goalSeconds = goalSeconds;
 
-        this.timerTextTemplate = 'Survived time: ';
-
-        this.timerText = this.scene.add.text(400, 550, `${this.timerTextTemplate} 0`, {
+        this.timerText = this.scene.add.text(400, 550, '', {
             fontFamily: 'monospace',
             fontSize: '22px',
             color: '#ffffff'
         }).setOrigin(0.5);
 
+        this.showTime();
+
         this.timerEvent = this.scene.time.addEvent({
-            delay: 1000, // 1 segundo
+            delay: 1000,
             callback: this.updateTimer,
             callbackScope: this,
             loop: true
@@ -22,12 +23,35 @@ export default class Timer {
     }
 
     updateTimer() {
+
         this.seconds++;
-        this.timerText.setText(`${this.timerTextTemplate} ${this.seconds}`);
+        this.showTime();
+
         if (this.seconds >= this.goalSeconds) {
-            // this.timerEvent.remove(false);
-            // this.scene.scene.start('GameOverScene', { won: true });
-            this.timerText.color = '#00ff00'; // Cambia el color del texto a verde
+            this.timerEvent.remove(false);
+        }
+    }
+
+   showTime() {
+
+        const remaining = Math.max(0, this.goalSeconds - this.seconds);
+
+        const minutes = Math.floor(remaining / 60);
+        const seconds = remaining % 60;
+
+        const formattedTime = String(minutes).padStart(2, '0') + ':' +
+                            String(seconds).padStart(2, '0');
+
+        this.timerText.setText(`TIEMPO RESTANTE: ${formattedTime}`);
+
+        if (remaining <= 10) {
+
+            this.timerText.setColor('#A855F7');
+
+        } else {
+
+            this.timerText.setColor('#ffffff');
+
         }
     }
 }
