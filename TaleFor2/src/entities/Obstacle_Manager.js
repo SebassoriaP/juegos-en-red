@@ -9,7 +9,7 @@ import Rotator from '../entities/Obstacles/Rotator.js';
 
 export default class Obstacle_Manager {
 
-    constructor(scene, frequency, frequency2, initial_chance, chance_increment, rotatorTime, maxChance = 0.2, debug = false) {
+    constructor(scene, frequency, frequency2, initial_chance, chance_increment, rotatorTime, maxChance = 0.2, frequencyToIncrement = 5, debug = false) {
 
         this.scene = scene;
         this.frequencyArrows = frequency;
@@ -18,6 +18,7 @@ export default class Obstacle_Manager {
         this.chance_increment = chance_increment;
         this.maxChance = maxChance;
         this.reps = 0;
+        this.frequencyToIncrement = frequencyToIncrement;
 
         this.timer = this.scene.time.addEvent({
             delay: this.frequencyArrows,     // Tiempo en milisegundos (x)
@@ -41,38 +42,40 @@ export default class Obstacle_Manager {
     }
 
     onTimerTick() {
-        if(this.debug) {
-            let obstacle = this.spawnObstacle(5, 
-            800, 300, 
-            false,
-            0.5
-            );
-            
-            this.scene.addObstacle(obstacle);
-            return;
-        }
+        for(let n = 0; n < (1 + Math.floor(this.reps / this.frequencyToIncrement)); n++) {
+            if(this.debug) {
+                let obstacle = this.spawnObstacle(5, 
+                800, 300, 
+                false,
+                0.5
+                );
+                
+                this.scene.addObstacle(obstacle);
+                return;
+            }
 
-        const randomValue = Math.random();
-        const chance = Math.min(this.initial_chance + this.chance_increment * this.reps, this.maxChance);
+            const randomValue = Math.random();
+            const chance = Math.min(this.initial_chance + this.chance_increment * this.reps, this.maxChance);
 
-        const randomX = Math.random(); // Posición X aleatoria (800 o 0)
-        const randomY = Phaser.Math.Between(50, 450);
-        // const direction = this.aimToPlayer();
+            const randomX = Math.random(); // Posición X aleatoria (800 o 0)
+            const randomY = Phaser.Math.Between(50, 450);
+            // const direction = this.aimToPlayer();
 
-        if (randomValue < chance) {
-            let obstacle = this.spawnObstacle(Math.floor(Math.random() * 6), 
-            randomX < 0.5 ? 800 : 0, randomY, 
-            0.5
-            );
+            if (randomValue < chance) {
+                let obstacle = this.spawnObstacle(Math.floor(Math.random() * 6), 
+                randomX < 0.5 ? 800 : 0, randomY, 
+                0.5
+                );
 
-            this.scene.addObstacle(obstacle);
-        }else {
-            let obstacle = this.spawnObstacle(10, 
-            randomX < 0.5 ? 800 : 0, randomY, 
-            0.5
-            );
-            
-            this.scene.addObstacle(obstacle);
+                this.scene.addObstacle(obstacle);
+            }else {
+                let obstacle = this.spawnObstacle(10, 
+                randomX < 0.5 ? 800 : 0, randomY, 
+                0.5
+                );
+                
+                this.scene.addObstacle(obstacle);
+            }
         }
 
         this.reps++;
