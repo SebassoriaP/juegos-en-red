@@ -77,30 +77,31 @@ export default class Obstacle_Manager {
                 return;
             }
 
-        const randomValue = Math.random();
-        const chance = Math.min(0.7, this.initial_chance + this.chance_increment * this.reps);
+            const randomValue = Math.random();
+            const chance = Math.min(0.7, this.initial_chance + this.chance_increment * this.reps);
 
-        const randomX = Math.random(); // Posición X aleatoria (800 o 0)
-        const randomY = Phaser.Math.Between(50, 450);
-        // const direction = this.aimToPlayer();
+            const randomX = Math.random(); // Posición X aleatoria (800 o 0)
+            const randomY = Phaser.Math.Between(50, 450);
+            // const direction = this.aimToPlayer();
 
-        if (randomValue < chance) {
-            let obstacle = this.spawnObstacle(this.getRandomObstacleType(),
-            randomX < 0.5 ? 800 : 0, randomY, 
-            0.5
-            );
+            if (randomValue < chance) {
+                let obstacle = this.spawnObstacle(this.getRandomObstacleType(),
+                randomX < 0.5 ? 800 : 0, randomY, 
+                0.5
+                );
 
-            this.scene.addObstacle(obstacle);
-        }else {
-            let obstacle = this.spawnObstacle(10, 
-            randomX < 0.5 ? 800 : 0, randomY, 
-            0.5
-            );
-            
-            this.scene.addObstacle(obstacle);
+                this.scene.addObstacle(obstacle);
+            }else {
+                let obstacle = this.spawnObstacle(10, 
+                randomX < 0.5 ? 800 : 0, randomY, 
+                0.5
+                );
+                
+                this.scene.addObstacle(obstacle);
+            }
+
+            this.reps++;
         }
-
-        this.reps++;
     }
     
     destroy() {
@@ -194,5 +195,4 @@ export default class Obstacle_Manager {
         }
         this.scene.addObstacle(rotator);
     }
-
 }
