@@ -1,10 +1,11 @@
-Juegos en Red - Fase 1
+Juegos en Red - Fase 2
 Grupo: D
 Juego: TaleFor2
 
 Integrantes:
-- Sebastián Soria   - sa.soria.2026@alumnos.urjc.es    - GitHub: SebassoriaP
-- Benjamín Agüera   - b.aguera.2024@alumnos.urjc.es    - GitHub: benjaminaguera
-- Marcos Varona   - m.varona.2024@alumnos.urjc.es   - GitHub: kensey519
+- Sebastián Soria - sa.soria.2026@alumnos.urjc.es - GitHub: SebassoriaP
+- Benjamín Agüera - b.aguera.2024@alumnos.urjc.es - GitHub: benjaminaguera
+- Marcos Varona - m.varona.2024@alumnos.urjc.es - GitHub: kensey519
 
-Repositorio GitHub: https://github.com/SebassoriaP/juegos-en-red
+Repositorio GitHub:
+https://github.com/SebassoriaP/juegos-en-red

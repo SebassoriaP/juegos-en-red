@@ -1,8 +1,10 @@
+
 # TaleFor2 — Documento de Diseño del Videojuego
 
 **Asignatura:** Juegos en Red  
 **Grupo:** D  
-**Integrantes:** Sebastián Soria, Benjamín Agüera y Marcos Varona
+**Integrantes:** Sebastián Soria, Benjamín Agüera y Marcos Varona  
+**Fase:** 2 — Implementación del videojuego local.
 
 ## Índice
 
@@ -23,9 +25,11 @@
 
 ## Introducción
 
-La idea para esta práctica es desarrollar un videojuego 2D de esquivar obstáculos, inspirado en juegos como *Undertale*. En este juego, dos jugadores deberán colaborar para esquivar distintos obstáculos que aparecerán en un pequeño espacio cerrado y sobrevivir durante 2 minutos.
+La idea para esta práctica es desarrollar un videojuego 2D de esquivar obstáculos, inspirado en juegos como **Undertale**. En este juego, dos jugadores deberán colaborar para esquivar distintos obstáculos que aparecen en un pequeño espacio cerrado y sobrevivir durante 2 minutos.
 
-La estética elegida será pixel-art, principalmente por su simpleza y sencillez.
+La principal característica del videojuego es que ambos jugadores comparten una única barra de salud, por lo que las acciones de cada jugador afectan directamente al resultado del equipo.
+
+La estética elegida es pixel-art, principalmente por su simpleza y sencillez.
 
 ## Ficha técnica
 
@@ -37,140 +41,191 @@ La estética elegida será pixel-art, principalmente por su simpleza y sencillez
 - **Duración de la partida:** 120 segundos.
 - **Estilo gráfico:** pixel-art en 2D.
 - **Cámara:** fija, mostrando toda la arena.
-- **Modalidad:** multijugador local inicialmente y multijugador en red en la versión final.
+- **Modalidad actual:** multijugador local.
+- **Modalidad futura:** multijugador en red.
+- **Motor:** Phaser 3.
 
 ## Mecánicas
 
-- Habrá dos jugadores, uno representado con un corazón de color magenta y otro con un corazón de color cian.
-- El jugador 1 se controla con las teclas WASD, mientras que el jugador 2 se controla con las teclas Arriba, Abajo, Derecha e Izquierda.
+- Hay dos jugadores, uno representado con un corazón de color magenta y otro con un corazón de color cian.
+- El jugador 1 se controla con las teclas WASD, mientras que el jugador 2 se controla con las flechas direccionales.
 - Ambos jugadores comparten una barra de salud de 20 puntos y una caja que delimita sus movimientos.
-- Durante la partida, los jugadores se enfrentan a distintos ataques en forma de obstáculos que deben esquivar.
-- Los efectos de los obstáculos varían dependiendo del color:
+- Durante la partida aparecen diferentes obstáculos que los jugadores deben esquivar o aprovechar dependiendo de sus efectos.
+- Los efectos de las flechas varían dependiendo del color:
   - **Blanco:** quita 1 punto de salud.
-  - **Verde:** recupera 1 punto de la salud compartida, sin superar el máximo de 20.
-  - **Azul oscuro:** ralentiza durante 3 segundos al jugador que lo toca.
-  - **Naranja:** ralentiza durante 3 segundos al otro jugador.
+  - **Verde:** recupera 1 punto de salud compartida.
   - **Rojo:** quita 2 puntos de salud.
-- Los obstáculos que ralentizan reducen la velocidad de movimiento del jugador afectado en un 30%.
-- Durante la partida aparecerán power-ups asociados al color de cada jugador. Cada jugador únicamente podrá recoger los power-ups correspondientes a su color. Al recoger uno, ambos jugadores aumentarán su velocidad de movimiento un 30% durante 5 segundos.
-- Cuando un jugador recibe daño de un obstáculo, entra en modo invencible durante 2 segundos, en los que no puede volver a recibir daño. En el modo invencible, el corazón se torna translúcido.
-- Los obstáculos aparecen mediante patrones que se suceden de forma aleatoria.
-- La partida tendrá una duración de **120 segundos (2 minutos)**. Cada 40 segundos aumentará la dificultad, incrementando progresivamente la velocidad de los obstáculos.
+  - **Azul:** ralentiza al jugador que lo toca.
+  - **Naranja:** ralentiza al otro jugador.
+  - **Amarillo:** acelera al jugador que lo toca.
+  - **Rosa:** acelera al otro jugador.
+- Los obstáculos que ralentizan reducen la velocidad del jugador afectado al 50% durante 3 segundos.
+- Los obstáculos de aceleración multiplican por 3 la velocidad del jugador afectado durante 3 segundos.
+- Cuando un jugador recibe daño, entra en modo invencible durante 2 segundos. Durante este periodo, el corazón parpadea.
+- Las flechas aparecen desde los laterales de la pantalla y apuntan hacia uno de los jugadores seleccionado aleatoriamente, con una pequeña desviación.
+- También aparecen obstáculos en forma de barras que se desplazan horizontal o verticalmente.
+- La dificultad aumenta progresivamente mediante el incremento de la cantidad de flechas generadas y la probabilidad de aparición de flechas especiales.
+- Las flechas de curación tienen una probabilidad de aparición inferior a otros obstáculos especiales.
+- La partida tiene una duración de **120 segundos (2 minutos)**.
 - Cuando la salud compartida llega a 0, ambos jugadores pierden la partida.
-- Los jugadores ganan la partida si consiguen mantener la salud compartida por encima de 0 hasta que finalice el tiempo establecido.
-- Al terminar la partida se mostrará una pantalla de victoria o derrota, con las opciones de jugar de nuevo o volver al menú inicial.
+- Los jugadores ganan si consiguen mantener la salud compartida por encima de 0 hasta que finalice el tiempo establecido.
+- La partida puede pausarse y reanudarse mediante la tecla ESC.
+- Al terminar la partida se muestra una pantalla de victoria o derrota, con las opciones de jugar de nuevo o volver al menú inicial.
 
 ## Diseño visual
 
-TaleFor2 tendrá una estética pixel-art sencilla, inspirada en juegos como *Undertale*. Se utilizarán colores llamativos sobre un fondo oscuro para facilitar la identificación de los jugadores y los obstáculos.
+TaleFor2 tiene una estética pixel-art sencilla, inspirada en juegos como Undertale. Se utilizan colores llamativos sobre un fondo oscuro para facilitar la identificación de los jugadores y los obstáculos.
 
 ### Personajes
 
-Los dos jugadores estarán representados por corazones de 32×32 píxeles:
+Los dos jugadores están representados por corazones:
 
-- **Jugador 1:** corazón magenta (`#FF4FA3`).
-- **Jugador 2:** corazón cian (`#36D9F5`).
+- **Jugador 1:** corazón magenta.
+- **Jugador 2:** corazón cian.
 
-Los corazones podrán desplazarse libremente dentro de los límites de la arena. Cuando un jugador reciba daño, su corazón se volverá translúcido durante los 2 segundos de invulnerabilidad.
+Los corazones pueden desplazarse libremente dentro de los límites de la arena.
+
+Cuando un jugador recibe daño, su corazón parpadea durante los 2 segundos de invulnerabilidad.
+
+Los efectos de ralentización y aceleración también producen cambios visuales en el jugador afectado.
 
 ### Obstáculos
 
-Los obstáculos utilizarán sprites de aproximadamente 16×16 píxeles. Cada tipo tendrá un color y una forma diferente para facilitar su identificación:
+Existen dos tipos principales de obstáculos:
 
-- **Blanco (`#F2F2F5`):** proyectil en forma de rombo.
-- **Verde (`#55D68A`):** cruz de curación.
-- **Azul oscuro (`#2856B8`):** esfera que ralentiza al jugador.
-- **Naranja (`#FF9F43`):** rombo que ralentiza al compañero.
-- **Rojo (`#FF5964`):** estrella con puntas que provoca mayor daño.
+**Flechas**
+
+Las flechas utilizan un mismo sprite, cuyo color cambia dependiendo del efecto que producen.
+
+- Blanco: daño normal.
+- Verde: curación.
+- Rojo: daño aumentado.
+- Azul: ralentización propia.
+- Naranja: ralentización del compañero.
+- Amarillo: aceleración propia.
+- Rosa: aceleración del compañero.
+
+**Barras**
+
+Son obstáculos de mayor tamaño que aparecen con menor frecuencia y se desplazan horizontal o verticalmente dentro de la pantalla.
+
+Su tamaño y movimiento dificultan el desplazamiento de los jugadores por la arena.
 
 ### Escenario e interfaz
 
-La partida tendrá lugar dentro de una arena rectangular con fondo oscuro. La cámara permanecerá fija para mostrar a ambos jugadores y los obstáculos en todo momento.
+La partida tiene lugar dentro de una arena rectangular con fondo oscuro. La cámara permanece fija para mostrar a ambos jugadores y los obstáculos en todo momento.
 
-En la interfaz se mostrará la barra de salud compartida y el tiempo restante de la partida.
+La resolución del videojuego es de 800 × 600 píxeles.
 
-El menú principal permitirá comenzar una partida y acceder a las opciones disponibles. Al finalizar, aparecerá una pantalla de victoria o derrota con las opciones de volver a jugar o regresar al menú.
+La interfaz muestra:
+
+- Barra de salud compartida de color morado.
+- Contador numérico de salud.
+- Temporizador con el tiempo restante.
+- Cambio del color del temporizador durante los últimos 10 segundos.
+
+El videojuego cuenta con cuatro escenas:
+
+- **MenuScene:** menú principal.
+- **GameScene:** desarrollo de la partida.
+- **PauseScene:** menú de pausa.
+- **EndScene:** pantalla de victoria o derrota.
 
 ### Recursos gráficos
 
-Los sprites del videojuego se han diseñado utilizando Aseprite y se exportan en formato PNG, manteniendo una estética pixel-art sencilla.
+Los recursos gráficos se utilizan en formato PNG, manteniendo una estética pixel-art sencilla.
 
 #### Sprites de los personajes
 
-Los jugadores están representados por dos corazones de diferentes colores.
-
 **Jugador 1 — Magenta**
 
-![Jugador 1](assets/characters/player1.png)
+![Jugador 1](TaleFor2/public/assets/images/player1.png)
 
 **Jugador 2 — Cian**
 
-![Jugador 2](assets/characters/player2.png)
+![Jugador 2](TaleFor2/public/assets/images/player2.png)
 
 #### Obstáculos
 
-Los obstáculos utilizan diferentes colores y formas para identificar sus efectos durante la partida.
+**Flecha**
 
-**Obstáculo blanco — Daño de 1 punto**
+![Flecha](TaleFor2/public/assets/images/Flecha.png)
 
-![Obstáculo blanco](assets/obstacles/white.png)
+**Barra**
 
-**Obstáculo verde — Recuperación de 1 punto de salud**
+![Barra](TaleFor2/public/assets/images/Rotador.png)
 
-![Obstáculo verde](assets/obstacles/green.png)
+#### Pantallas
 
-**Obstáculo naranja — Ralentización del compañero**
+**Menú principal**
 
-![Obstáculo naranja](assets/obstacles/orange.png)
+![Logo](TaleFor2/public/assets/images/talefor2-logo.png)
 
-#### Escenario
+**Victoria**
 
-La partida se desarrolla en una arena rectangular que delimita los movimientos de ambos jugadores.
+![Victoria](TaleFor2/public/assets/images/victoria.png)
 
-![Arena de juego](assets/arena.png)
+**Derrota**
+
+![Derrota](TaleFor2/public/assets/images/game-over.png)
 
 ## Multijugador
 
-Inicialmente, el juego se desarrollará para dos jugadores en un mismo ordenador, compartiendo teclado y pantalla.
+En la Fase 2, el videojuego permite que dos jugadores jueguen en un mismo ordenador, compartiendo teclado y pantalla.
 
-Posteriormente, se adaptará para que ambos jugadores puedan jugar desde diferentes ordenadores conectados mediante red, manteniendo sincronizados los movimientos, obstáculos, salud y tiempo restante de la partida.
+Ambos jugadores disponen de controles independientes, pero comparten la salud y el objetivo de supervivencia.
+
+Posteriormente, se plantea adaptar el videojuego para que ambos jugadores puedan jugar desde diferentes ordenadores conectados mediante red, manteniendo sincronizados los movimientos, obstáculos, salud y tiempo restante de la partida.
 
 ## Movimiento y colisiones
 
-Los jugadores podrán desplazarse libremente en cuatro direcciones dentro de una arena rectangular, sin atravesar sus límites.
+Los jugadores pueden desplazarse libremente dentro de una arena rectangular, sin atravesar sus límites.
 
-Los obstáculos se moverán siguiendo diferentes patrones de ataque seleccionados aleatoriamente. Cuando un obstáculo entre en contacto con un jugador, se aplicará el efecto correspondiente según su color.
+El movimiento se normaliza para evitar que los desplazamientos diagonales sean más rápidos que los horizontales o verticales.
 
-Después de recibir daño, el jugador tendrá 2 segundos de invulnerabilidad, durante los cuales no podrá perder más salud.
+Las colisiones se gestionan mediante el sistema Arcade Physics de Phaser.
 
-Cada 40 segundos aumentará la velocidad de los obstáculos, incrementando progresivamente la dificultad de la partida.
+Cuando un obstáculo entra en contacto con un jugador, se ejecuta el efecto correspondiente según su tipo.
+
+Después de recibir daño, el jugador dispone de 2 segundos de invulnerabilidad, durante los cuales no puede perder más salud.
+
+La generación de obstáculos se gestiona mediante la clase Obstacle_Manager.
+
+La dificultad aumenta mediante la generación progresiva de más flechas por intervalo y el incremento de la probabilidad de aparición de obstáculos especiales.
+
+Los obstáculos que salen de los límites de la pantalla se eliminan para evitar su acumulación.
 
 ## Comunicación
 
 TaleFor2 está dirigido a jugadores que disfrutan de los videojuegos cooperativos y las partidas cortas.
 
-Para dar a conocer el proyecto, se compartirán capturas de pantalla, vídeos cortos de las partidas y avances del desarrollo.
+Para dar a conocer el proyecto, se pueden compartir capturas de pantalla, vídeos cortos de las partidas y avances del desarrollo.
 
-Además, el repositorio de GitHub permitirá mostrar la documentación, los recursos gráficos y la evolución del videojuego.
+Además, el repositorio de GitHub permite mostrar la documentación, los recursos gráficos y la evolución del videojuego.
 
 ## Sonido
 
-TaleFor2 contará con música de fondo de estilo retro de 8 bits, acorde con su estética pixel-art. Durante la partida se utilizará una melodía dinámica que acompañará los diferentes patrones de obstáculos.
+TaleFor2 cuenta con música de fondo en el menú principal y efectos sonoros asociados a las principales acciones del videojuego:
 
-También se incluirán efectos sonoros para las principales acciones del juego:
-
-- **Daño:** sonido breve cuando un jugador pierde salud.
+- **Inicio:** sonido al comenzar una partida.
+- **Daño:** sonido cuando un jugador pierde salud.
 - **Curación:** sonido al recuperar puntos de salud.
-- **Potenciadores:** efecto al recoger un objeto que aumenta la velocidad.
-- **Victoria:** melodía corta al sobrevivir los 120 segundos.
-- **Derrota:** sonido que indica que la salud compartida ha llegado a cero.
+- **Ralentización:** sonido al recibir un efecto de reducción de velocidad.
+- **Aceleración:** sonido al recibir un efecto de aumento de velocidad.
+- **Derrota:** sonido cuando la salud compartida llega a cero.
+
+La gestión del sonido se realiza mediante la clase SoundManager, que permite reproducir música, efectos sonoros, controlar el volumen y silenciar el videojuego.
 
 ## Historia
 
-En las tierras de Unrelated, los héroes Papyrus Y Sans se adentran en territorios oscuros y malévolos. En su viaje, se encuentran un malvado hechicero que enfrasca a ambos en un retorcido juego en el que deberán esquivar juntos trampas mortales hasta agotar las fuerzas mágicas de mago.
+En las tierras de Unrelated, los héroes Papyrus y Sans se adentran en territorios oscuros y malévolos. En su viaje, se encuentran con un malvado hechicero que enfrasca a ambos en un retorcido juego en el que deberán esquivar juntos trampas mortales hasta agotar las fuerzas mágicas del mago.
 
 ## Referencias
 
 - **Undertale — Toby Fox (2015).** Videojuego utilizado como inspiración para las mecánicas de esquivar obstáculos, la representación de los personajes mediante corazones y la estética pixel-art. https://undertale.com/
 
-- **Aseprite.** Herramienta utilizada para diseñar los sprites y recursos gráficos del videojuego. https://www.aseprite.org/
+- **Aseprite.** Herramienta utilizada para diseñar sprites y recursos gráficos del videojuego. https://www.aseprite.org/
+
+- **Phaser 3.** Framework utilizado para el desarrollo del videojuego. https://phaser.io/
+
+- **Vite.** Herramienta utilizada para el entorno de desarrollo. https://vite.dev/
