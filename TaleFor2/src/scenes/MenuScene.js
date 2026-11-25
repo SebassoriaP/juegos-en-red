@@ -10,13 +10,13 @@ export default class MenuScene extends Phaser.Scene {
     preload() {
         this.load.image('logo', 'assets/images/talefor2-logo.png');
 
-        this.load.audio("Hit", "assets/Audio/Hit.wav");
-        this.load.audio("PowerUp", "assets/Audio/PowerUp.wav");
-        this.load.audio("Muerte", "assets/Audio/Muerte.wav");
-        this.load.audio("MusicaMenu", "assets/Audio/MusicaMenu.wav");
-        this.load.audio("Start", "assets/Audio/Start.wav");
-        this.load.audio("SlowObstacle", "assets/Audio/SlowObstacle.mp3");
-        this.load.audio("heal_04", "assets/Audio/heal_04.mp3");
+        this.load.audio("Hit", "assets/audio/Hit.wav");
+        this.load.audio("PowerUp", "assets/audio/PowerUp.wav");
+        this.load.audio("Muerte", "assets/audio/Muerte.wav");
+        this.load.audio("MusicaMenu", "assets/audio/MusicaMenu.wav");
+        this.load.audio("Start", "assets/audio/Start.wav");
+        this.load.audio("SlowObstacle", "assets/audio/SlowObstacle.mp3");
+        this.load.audio("heal_04", "assets/audio/heal_04.mp3");
     }
 
     create() {
