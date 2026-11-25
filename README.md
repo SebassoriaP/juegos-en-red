@@ -90,5 +90,7 @@ El documento completo de diseño del videojuego se encuentra disponible en:
 
 ## Presentación
 
-- [Presentación de la Fase 1](TaleFor2%20-%20GDD.pptx).
+## Presentación
+
+- [Presentación de la Fase 1](TaleFor2%20-%20GDD%20-%20Presentación.pptx).
 - [Presentación de la Fase 2](TaleFor2%20-%20Fase%202.pptx).
